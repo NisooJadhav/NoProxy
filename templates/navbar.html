@@ -1,0 +1,76 @@
+<style>
+  .navbar {
+    background: #fff;
+    color: #444;
+    box-shadow: 2px 5px 5px #00000025;
+    z-index: 5;
+  }
+
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #444;
+    font-size: 1.5em;
+    text-decoration: none;
+  }
+  .navbar-brand img {
+    margin-right: 10px;
+  }
+  .nav-item {
+    margin: 0 10px;
+  }
+  .nav-link {
+    color: #444;
+    font-size: 1.2em;
+    transition: color 0.3s;
+  }
+  .nav-link:hover {
+    color: #000;
+  }
+</style>
+<nav class="navbar navbar-expand-lg">
+  <a class="navbar-brand" href="{{ url_for('home') }}">
+    <img
+      src="{{ url_for('static', filename='logo1.png') }}"
+      width="150"
+      height="auto"
+      class="d-inline-block align-top"
+      alt=""
+      loading="lazy"
+    />
+  </a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav" style="margin: 0 auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ url_for('home') }}">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('about') }}">About</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('contact') }}">Contact</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('attendance') }}">Attendance</a>
+      </li>
+      {% if username %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('dashboard') }}"
+          >Hello, <u><b>{{ username }}</b></u></a
+        >
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('logout') }}">Logout</a>
+      </li>
+      {% else %}
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ url_for('signup') }}">Sign Up</a>
+      </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

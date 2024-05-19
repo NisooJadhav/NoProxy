@@ -1,0 +1,347 @@
+{% include 'head.html' %} {% include 'navbar.html' %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Attendance Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            padding-top: 40vh !important;
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            width: 200px;
+            left: 0;          
+            bottom: 0;
+            position: fixed;
+            height: 100vh;
+            
+        }
+
+        .sidebar a {
+            color: #fff;
+            display: block;
+            padding: 10px;
+            text-decoration: none;
+        }
+
+        .sidebar a:hover {
+            background-color: #555;
+        }
+
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+        }
+    </style>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/path/to/font-awesome/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="sidebar">
+            <a href="#" onclick="showContent('viewAttendance')">Statistics</a>
+            <a href="#" onclick="showContent('viewStudent')">Attendance</a>
+            <a href="#" onclick="showContent('addStudent')">Add Student</a>
+        </div>
+
+        <div class="content">
+            <div id="addStudent" style="display: none;">
+                <head>
+                    <style>
+                        form {
+                            font-family: Arial, sans-serif;
+                            background-color: #f2f2f2;
+                            padding: 20px;
+                            display: grid;
+                            place-items: center;
+                            height: 100vh;
+                            margin: 0;
+                        }
+
+                        h1 {
+                            color: #333;
+                            text-align: center;
+                        }
+
+                        .grid-form {
+                            background-color: #fff;
+                            /* padding: 20px; */
+                            border-radius: 5px;
+                            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                            max-width: 500px;
+                            margin: auto;
+                            display: grid;
+                            grid-template-columns: repeat(2, 1fr);
+                            gap: 2px;
+                        }
+
+                        label {
+                            font-weight: bold;
+                        }
+
+                        input[type="text"], input[type="number"] {
+                            width: calc(100% - 20px);
+                            /* padding: 10px; */
+                            border: 1px solid #ccc;
+                            border-radius: 4px;
+                            box-sizing: border-box;
+                        }
+
+                        input[type="submit"] {
+                            width: 100%;
+                            background-color: #4caf50;
+                            color: white;
+                            border: none;
+                            cursor: pointer;
+                            padding: 12px 0;
+                            border-radius: 4px;
+                            grid-column: span 2; /* span across two columns */
+                        }
+
+                        input[type="submit"]:hover {
+                            background-color: #45a049;
+                        }
+
+                        table {
+                            width: 100%;
+                            border-collapse: collapse;
+                            font-family: Arial, sans-serif;
+                        }
+
+                        th, td {
+                            padding: 8px;
+                            text-align: left;
+                            border-bottom: 1px solid #ddd;
+                        }
+
+                        th {
+                            background-color: #333;
+                            color: #fff;
+                        }
+
+                        tr:hover {
+                            background-color: #f5f5f5;
+                        }
+
+                        .student-image {
+                            width: 50px;
+                            height: 50px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                        }
+
+                        /* Delete button styles */
+                        .delete-student {
+                        background-color: #dc3545;
+                        color: #fff;
+                        border: none;
+                        padding: 0.5rem 0.75rem;
+                        border-radius: 0.25rem;
+                        cursor: pointer;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        transition: background-color 0.3s ease;
+                        }
+
+                        .delete-student:hover {
+                        background-color: #c82333;
+                        }
+
+                        .delete-student i {
+                        margin-right: 0.5rem;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <h1>Insert Student Data</h1>
+                    <form method="post" class="grid-form" enctype="multipart/form-data">
+                        <label for="roll_number">Roll Number:</label>
+                        <input type="text" id="roll_number" name="roll_number" required placeholder="10" />
+                        <label for="name">Name:</label>
+                        <input type="text" id="name" name="name" required placeholder="Elon Musk" />
+                        <label for="course">Standard:</label>
+                        <input type="text" id="course" name="course" required placeholder="8th" />
+                        <label for="starting_year">Starting Year:</label>
+                        <input type="number" id="starting_year" name="starting_year" required placeholder="2023" />
+                        <label for="total_attendance">Total Attendance:</label>
+                        <input type="number" id="total_attendance" name="total_attendance" required placeholder="50" />
+                        <label for="standing">Standing:</label>
+                        <input type="text" id="standing" name="standing" required placeholder="G" />
+                        <label for="year">Age:</label>
+                        <input type="number" id="year" name="year" required placeholder="16" />
+                        <label for="last_attendance_time">Last Attendance Time:</label>
+                        <input type="text" id="last_attendance_time" name="last_attendance_time" required placeholder="2024-04-11 19:30:00" />
+                        <label for="profile_pic">Profile Picture: </label>
+                        <input type="file" id="profile_pic" name="profile_pic" accept="image/*" />
+                        <input type="submit" value="Submit" />
+                    </form>
+                    {% if error %}
+                    <p class="error">{{ error }}</p>
+                    {% elif success %}
+                    <p class="success">{{ success }}</p>
+                    {% endif %}
+                </body>
+                </html>
+            </div>
+
+            <div id="viewStudent" style="display: none;">
+              <h1>Attendance Details</h1>
+              <table>
+                <thead>
+                    <tr>
+                        <th>Roll Number</th>
+                        <th>Image</th>
+                        <th>Name</th>
+                        <th>Standard</th>
+                        <th>Starting Year</th>
+                        <th>Total Attendance</th>
+                        <th>Standing</th>
+                        <th>Age</th>
+                        <th>Last Attendance Time</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for student in students %}
+                    {% if student.id is not none %}
+                    <tr>
+                        <td>{{ student.id }}</td>
+                        <td>
+                            {% if student.image_url %}
+                            <img src="{{ student.image_url }}" class="student-image" alt="Student Image">
+                            {% else %}
+                            <span>-</span>
+                            {% endif %}
+                        </td>
+                        <td>{{ student.name if student.name is not none else '-' }}</td>
+                        <td>{{ student.course if student.course is not none else '-' }}</td>
+                        <td>{{ student.starting_year if student.starting_year is not none else '-' }}</td>
+                        <td>{{ student.total_attendance if student.total_attendance is not none else '-' }}</td>
+                        <td>{{ student.standing if student.standing is not none else '-' }}</td>
+                        <td>{{ student.year if student.year is not none else '-' }}</td>
+                        <!-- <td>{{ student.last_attendance_time if student.last_attendance_time is not none else '-' }}</td> -->
+                        <td>
+                            {% if student.last_attendance_time is not none %}
+                            <span class="last-attendance-time" style="display: none;">{{ student.last_attendance_time }}</span>
+                            <span class="last-attendance-text"></span>
+                            <script>
+                              var lastAttendanceTime = moment("{{ student.last_attendance_time }}");
+                              var currentTime = moment();
+                              var timeDiff = currentTime.diff(lastAttendanceTime, 'hours');
+                              var dateDisplay = lastAttendanceTime.format('YYYY-MM-DD');
+                              var timeDisplay;
+                          
+                              if (timeDiff > 24) {
+                                var days = Math.floor(timeDiff / 24);
+                                timeDisplay = days + ' days ago';
+                              } else {
+                                timeDisplay = (timeDiff > 0) ? timeDiff + ' hours ago' : 'Just now';
+                              }
+                          
+                              document.currentScript.previousElementSibling.textContent = dateDisplay + ' : ' + timeDisplay;
+                            </script>
+                            {% else %} - {% endif %}
+                          </td>
+                        <td>
+                            <button class="delete-student" data-student-id="{{ student.id }}"><i class="fa fa-trash"></i>Delete</button>
+                        </td>
+                    </tr>
+                    {% endif %}
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
+
+            <div id="viewAttendance" style="display: none;">
+                <h1>Attendance Statistics</h1>
+                <p>Total Students: {{ total_students-1 }}</p>
+                <div>
+                    <canvas id="attendanceChart" width="400" height="200"></canvas>
+                </div>
+                <!-- {{ chart_html|safe }} -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function() {
+            showContent('viewStudent');
+        }
+    
+        function showContent(contentId) {
+            let divs = document.getElementsByClassName("content")[0].children;
+            for (let div of divs) {
+                div.style.display = "none";
+            }
+            document.getElementById(contentId).style.display = "block";
+        }
+
+        document.querySelectorAll('.delete-student').forEach(function(button) {
+        button.addEventListener('click', function() {
+            let studentId = this.getAttribute('data-student-id');
+            let form = document.createElement('form');
+            form.method = 'POST';
+            form.action = '{{ url_for("dashboard") }}';
+
+            let input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = 'delete_student';
+            input.value = studentId;
+            form.appendChild(input);
+
+            document.body.appendChild(form);
+            form.submit();
+            });
+        });
+
+        // Data passed from Flask, included in a separate script tag to avoid parsing issues
+        const studentData = JSON.parse('{{ student_data_json|tojson|safe }}');
+        const totalAttendanceData = JSON.parse('{{ total_attendance_json|tojson|safe }}');
+
+        // Extract student names and total attendance for the bar chart
+        const studentNames = studentData.map(function(student) {
+            return student.name;
+        });
+        const totalAttendance = totalAttendanceData;
+
+        // Create the bar chart
+        const ctx = document.getElementById('attendanceChart').getContext('2d');
+        const attendanceChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: studentNames,
+                datasets: [{
+                    label: 'Total Attendance',
+                    data: totalAttendance,
+                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>

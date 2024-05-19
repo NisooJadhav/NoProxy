@@ -1,0 +1,144 @@
+{% include 'head.html' %} {% include 'navbar.html' %}
+
+<head>
+  <style>
+    /* Reset styles */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    /* Basic styles */
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    header {
+      background-color: #333;
+      color: #fff;
+      padding: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    nav ul {
+      list-style-type: none;
+      display: flex;
+    }
+
+    nav ul li {
+      margin-right: 20px;
+    }
+
+    nav ul li a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px;
+      transition: background-color 0.3s ease;
+    }
+
+    main {
+      padding: 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: calc(100vh - 160px); /* Adjust height as needed */
+    }
+
+    .contact {
+      max-width: 600px;
+      width: 100%;
+      background-color: #fff;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .contact h2 {
+      margin-bottom: 30px;
+      font-size: 28px;
+      color: #333;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+
+    .form-group label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 5px;
+      color: #555;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      font-size: 16px;
+    }
+
+    .form-group textarea {
+      resize: vertical;
+    }
+
+    .send-btn {
+      background-color: #333;
+      color: #fff;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .send-btn:hover {
+      background-color: #555;
+    }
+  </style>
+</head>
+
+<center>
+  <br />
+  <h3>Contact Us</h3>
+  <form
+    method="POST"
+    data-email="nisoojadhav@gmail.com"
+    action="https://script.google.com/macros/s/AKfycbxe7Bha36F30GOTOoQUCDPLoJ6uvtHbP42rJT_fMKStpvlluXfeD9gcyVWgzgEvehEI7A/exec"
+  >
+    <div class="form-group">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" required />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required />
+    </div>
+
+    <div class="form-group">
+      <label for="mobile">Mobile</label>
+      <input type="tel" id="mobile" name="mobile" required />
+    </div>
+
+    <div class="form-group">
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+    </div>
+
+    <button type="submit" class="send-btn">Send Message</button>
+
+    <div class="thankyou_message" style="display: none">
+      <h2><em>Thanks</em> for contacting us! We will get back to you soon!</h2>
+    </div>
+  </form>
+</center>

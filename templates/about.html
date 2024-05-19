@@ -1,0 +1,185 @@
+{% include 'head.html' %} {% include 'navbar.html' %}
+
+<head>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      line-height: 1.6;
+      color: #333;
+    }
+
+    main {
+      padding: 80px 40px;
+    }
+
+    .hero {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 80px;
+    }
+
+    .hero-content {
+      flex: 1;
+      padding-right: 40px;
+    }
+
+    .hero-content h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .hero-content p {
+      font-size: 20px;
+      color: #7f8c8d;
+    }
+
+    .hero img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    }
+
+    .about {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .section-content {
+      flex: 0 0 calc(33.33% - 20px);
+      margin-bottom: 40px;
+      background-color: #fff;
+      padding: 40px;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .section-content:hover {
+      transform: translateY(-10px);
+    }
+
+    .section-content h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #2c3e50;
+    }
+
+    .section-content p {
+      font-size: 16px;
+      color: #7f8c8d;
+    }
+
+    .section-content ul {
+      list-style-type: none;
+      padding-left: 20px;
+    }
+
+    .section-content ul li {
+      font-size: 16px;
+      color: #7f8c8d;
+      margin-bottom: 10px;
+    }
+
+    .section-content ul li i {
+      color: #2ecc71;
+      margin-right: 10px;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 992px) {
+      .hero {
+        flex-direction: column;
+      }
+
+      .hero-content {
+        padding-right: 0;
+        margin-bottom: 40px;
+        text-align: center;
+      }
+
+      .about {
+        justify-content: center;
+      }
+
+      .section-content {
+        flex: 0 0 calc(50% - 20px);
+      }
+    }
+
+    @media (max-width: 768px) {
+      main {
+        padding: 40px 20px;
+      }
+
+      .section-content {
+        flex: 0 0 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>About</h1>
+        <h2>NoProxy - cheatproof attendance</h2>
+        <p>
+          Revolutionizing attendance tracking with unparalleled security and
+          accuracy.
+        </p>
+      </div>
+      <img
+        src="https://attendanceradar.com/wp-content/uploads/2023/10/students.webp"
+        alt="Attendance Image"
+      />
+    </section>
+
+    <section class="about">
+      <div class="section-content">
+        <h2>Our Mission</h2>
+        <p>
+          At NoProxy, our mission is to provide organizations with a reliable
+          and cheat-proof attendance system. We understand the importance of
+          accurate attendance records and strive to eliminate the potential for
+          proxy or impersonation.
+        </p>
+      </div>
+      <div class="section-content">
+        <h2>How We Do It</h2>
+        <p>
+          Our cutting-edge technology combines biometric authentication with
+          advanced facial recognition algorithms to ensure that only authorized
+          individuals can mark their attendance. By leveraging state-of-the-art
+          security measures, we guarantee the integrity of your attendance data.
+        </p>
+      </div>
+      <div class="section-content">
+        <h2>Why Choose NoProxy</h2>
+        <ul>
+          <li>
+            <i class="fas fa-check"></i> Unparalleled accuracy and reliability
+          </li>
+          <li><i class="fas fa-check"></i> Robust security measures</li>
+          <li>
+            <i class="fas fa-check"></i> Seamless integration with existing
+            systems
+          </li>
+          <li><i class="fas fa-check"></i> User-friendly interface</li>
+          <li>
+            <i class="fas fa-check"></i> Comprehensive reporting and analytics
+          </li>
+        </ul>
+      </div>
+    </section>
+  </main>
+</body>

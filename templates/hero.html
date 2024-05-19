@@ -1,0 +1,31 @@
+{% include 'head.html' %}
+    <style>
+        @font-face {
+        font-family: "Star Jedi";
+        src: url("{{ url_for('static', filename='starjedi.ttf') }}");
+      }
+
+      .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+          url("{{ url_for('static', filename='class.jpg') }}") no-repeat center
+            center;
+        background-size: cover;
+        height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        font-size: 3em;
+        text-shadow: 2px 2px 4px #000;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="hero-section">
+      <img src="{{ url_for('static', filename='round.png') }}" alt="" style="width: 22vw; border-radius: 50%; background: #77B0AA;" />
+      <h1 style="font-size: 2em; text-shadow: 2px 2px 4px #000000;" class="hero-logo">NoProxy</h1>
+      <h3>Cheat Proof Attendance</h3>
+    </div>
+  </body>

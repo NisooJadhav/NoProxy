@@ -1,0 +1,167 @@
+{% include 'head.html' %} {% include 'navbar.html' %}
+
+<head>
+    <style>
+        form {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            padding: 20px;
+            display: grid;
+            place-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h3 {
+            color: #333;
+            text-align: center;
+        }
+
+        .grid-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            margin: auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"], input[type="number"] {
+            width: calc(100% - 20px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            background-color: #4caf50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 12px 0;
+            border-radius: 4px;
+            grid-column: span 2; /* span across two columns */
+        }
+
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #333;
+            color: #fff;
+        }
+
+        tr:hover {
+            background-color: #f5f5f5;
+        }
+
+        .student-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+</head>
+
+<center>
+<br />
+<br />
+<br />
+<h3>Attendance Details</h3>
+<br />
+<table>
+  <thead>
+    <tr>
+      <th>Roll Number</th>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Standard</th>
+      <th>Starting Year</th>
+      <th>Total Attendance</th>
+      <th>Standing</th>
+      <th>Age</th>
+      <th>Last Attendance Time</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for student in students %} {% if student.id is not none %}
+    <tr>
+      <td>{{ student.id }}</td>
+      <td>
+        {% if student.image_url %}
+        <img
+          src="{{ student.image_url }}"
+          class="student-image"
+          alt="Student Image"
+        />
+        {% else %}
+        <span>-</span>
+        {% endif %}
+      </td>
+      <td>{{ student.name if student.name is not none else '-' }}</td>
+      <td>{{ student.course if student.course is not none else '-' }}</td>
+      <td>
+        {{ student.starting_year if student.starting_year is not none else '-'
+        }}
+      </td>
+      <td>
+        {{ student.total_attendance if student.total_attendance is not none else
+        '-' }}
+      </td>
+      <td>{{ student.standing if student.standing is not none else '-' }}</td>
+      <td>{{ student.year if student.year is not none else '-' }}</td>
+      <!-- <td>{{ student.last_attendance_time if student.last_attendance_time is not none else '-' }}</td> -->
+      <td>
+        {% if student.last_attendance_time is not none %}
+        <span class="last-attendance-time" style="display: none"
+          >{{ student.last_attendance_time }}</span
+        >
+        <span class="last-attendance-text"></span>
+        <script>
+          let lastAttendanceTime = moment("{{ student.last_attendance_time }}");
+          let currentTime = moment();
+          let timeDiff = currentTime.diff(lastAttendanceTime, "hours");
+          let dateDisplay = lastAttendanceTime.format("YYYY-MM-DD");
+          let timeDisplay;
+
+          if (timeDiff > 24) {
+            let days = Math.floor(timeDiff / 24);
+            timeDisplay = days + " days ago";
+          } else {
+            timeDisplay = timeDiff > 0 ? timeDiff + " hours ago" : "Just now";
+          }
+
+          document.currentScript.previousElementSibling.textContent =
+            dateDisplay + " : " + timeDisplay;
+        </script>
+        {% else %} - {% endif %}
+      </td>
+    </tr>
+    {% endif %} {% endfor %}
+  </tbody>
+</table>
+</center>
